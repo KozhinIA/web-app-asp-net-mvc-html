@@ -1,0 +1,12 @@
+﻿@using WebAppAspNetMvcHtml.Models
+@model CurrencyType
+
+<h3>Тип валюты</h3>
+
+@using (Html.BeginForm("Create", "CurrencyTypes", FormMethod.Post))
+{
+    @Html.EditorForModel()
+
+    <input type="submit" value="Сохранить" />
+    @Html.ActionLink("Отменить", "Index", "CurrencyTypes")
+}

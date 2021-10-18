@@ -1,0 +1,76 @@
+﻿@using WebAppAspNetMvcHtml.Models
+@model Book
+
+
+<table>
+    <tbody>
+        <tr>
+            <td rowspan="2">
+                <img src="/Books/GetImage/@Model.Id" style="max-width: 300px; max-height: 600px; border: 1px solid #000000;" />
+            </td>
+
+            <td>
+                <h1><u>@Model.Name</u></h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    <span><b>ISBN:</b></span>
+                    <span>@Model.Isbn</span>
+                </p>
+                <p>
+                    <span><b>Жанр:</b></span>
+                    <span>@Model.Genre.Name</span>
+                </p>
+                <p>
+                    @{
+                        var authors = string.Join(", ", Model.Authors.Select(x => $"{x.LastName} {x.FirestName}"));
+                        if (string.IsNullOrEmpty(authors))
+                        {
+                            authors = "Нет информации";
+                        }
+                    }
+
+                    <span><b>Авторы:</b></span>
+                    <span>@authors</span>
+                </p>
+                <p>
+                    <span><b>Языки:</b></span>
+                    <span>@string.Join(", ", Model.Languages.Select(x => $"{x.Name}"))</span>
+                </p>
+                <p>
+                    <span><b>Год издания книги:</b></span>
+                    <span>@Model.Year</span>
+                </p>
+                <p>
+                    <span><b>Стоимость:</b></span>
+                    <span>@($"{Model.Cost} {Model.CurrencyType.LetterCode}")<sup>1</sup></span>
+                </p>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <h3>Аннотация</h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <pre style="width: auto; white-space: pre-wrap;">
+@Model.Annotation
+</pre>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+@Html.ActionLink("На главную", "Index", "Books")
+
+
+<hr />
+
+
+<sub><i>1 - Рекомендованная розничная цена.</i></sub>
